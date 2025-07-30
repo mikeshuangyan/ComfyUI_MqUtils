@@ -5,7 +5,7 @@ __all__ = [
 
 __author__ = """ComfyUI_MqUtils"""
 __email__ = "mikeshuangyan@gmail.com"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 import importlib
 

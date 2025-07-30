@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ComfyUI_MqUtils"
-version = "0.0.1"
+version = "0.0.2"
 description = "MQ util nodes for ComfyUI"
 authors = [
   {name = "ComfyUI_MqUtils", email = "mikeshuangyan@gmail.com"}

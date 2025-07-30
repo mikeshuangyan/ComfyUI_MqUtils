@@ -52,12 +52,39 @@ class IntSwitch:
             val = if_false
         return (val, )
 
+class IntToString:
+    NAME = "MQ Int To String"
+    CATEGORY = "MQ Utils/Utils"
+    RETURN_TYPES = ("STRING", )
+    RETURN_NAMES = ("STRING", )
+    FUNCTION = "run"
+
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "int": (
+                    "INT", {
+                        "default": 0,
+                        "min": -1e9,
+                        "max": 1e9,
+                        "step": 1,
+                        "forceInput": True,
+                    }),
+            }
+        }
+
+    def run(self, int):
+        return (str(int), )
+
 NODE_CLASS_MAPPINGS = {
     "MqTextSplitter": TextSplitByDelimiter,
     "MqIntSwitch": IntSwitch,
+    "MqIntToString": IntToString,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "MqTextSplitter": "MQ Text Splitter",
     "MqIntSwitch": "MQ Int Switch",
+    "MqIntToString": "MQ Int To String",
 }
