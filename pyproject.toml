@@ -31,6 +31,7 @@ dev = [
 [project.urls]
 bugs = "https://github.com/mikeshuangyan/ComfyUI_MqUtils/issues"
 homepage = "https://github.com/mikeshuangyan/ComfyUI_MqUtils"
+Repository = "https://github.com/mikeshuangyan/ComfyUI_MqUtils"
 
 
 [tool.comfy]
