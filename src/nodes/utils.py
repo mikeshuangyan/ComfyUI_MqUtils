@@ -1,10 +1,14 @@
 import codecs
 
+
 class TextSplitByDelimiter:
     NAME = "MQ Text Splitter"
     CATEGORY = "MQ Utils/Utils"
     RETURN_TYPES = ("STRING", "INT")
-    RETURN_NAMES = ("STRING LIST", "LENGTH",)
+    RETURN_NAMES = (
+        "STRING LIST",
+        "LENGTH",
+    )
     FUNCTION = "run"
     INPUT_IS_LIST = False
     OUTPUT_IS_LIST = (True, False)
@@ -13,8 +17,8 @@ class TextSplitByDelimiter:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "text": ("STRING", {"multiline": True,"dynamicPrompts": False}),
-                "delimiter":("STRING", {"multiline": False,"default":",","dynamicPrompts": False}),
+                "text": ("STRING", {"multiline": True, "dynamicPrompts": False}),
+                "delimiter": ("STRING", {"multiline": False, "default": ",", "dynamicPrompts": False}),
                 "start_index": ("INT", {"default": 0, "min": 0, "max": 1000}),
                 "skip_every": ("INT", {"default": 0, "min": 0, "max": 10}),
                 "max_count": ("INT", {"default": 10, "min": 1, "max": 1000}),
@@ -22,19 +26,20 @@ class TextSplitByDelimiter:
         }
 
     def run(self, text, delimiter, start_index, skip_every, max_count):
-        delimiter = codecs.decode(delimiter, 'unicode_escape')
+        delimiter = codecs.decode(delimiter, "unicode_escape")
         arr = [item.strip() for item in text.split(delimiter) if item.strip()]
-        arr = arr[start_index:start_index + max_count * (skip_every + 1):(skip_every + 1)]
+        arr = arr[start_index : start_index + max_count * (skip_every + 1) : (skip_every + 1)]
         return (arr, len(arr))
+
 
 class IntSwitch:
     NAME = "MQ Int Switch"
     CATEGORY = "MQ Utils/Utils"
-    RETURN_TYPES = ("INT", )
-    RETURN_NAMES = ("VALUE", )
+    RETURN_TYPES = ("INT",)
+    RETURN_NAMES = ("VALUE",)
     FUNCTION = "run"
     INPUT_IS_LIST = False
-    OUTPUT_IS_LIST = (False, )
+    OUTPUT_IS_LIST = (False,)
 
     @classmethod
     def INPUT_TYPES(s):
@@ -50,13 +55,14 @@ class IntSwitch:
         val = if_true
         if not condition:
             val = if_false
-        return (val, )
+        return (val,)
+
 
 class IntToString:
     NAME = "MQ Int To String"
     CATEGORY = "MQ Utils/Utils"
-    RETURN_TYPES = ("STRING", )
-    RETURN_NAMES = ("STRING", )
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("STRING",)
     FUNCTION = "run"
 
     @classmethod
@@ -64,18 +70,21 @@ class IntToString:
         return {
             "required": {
                 "int": (
-                    "INT", {
+                    "INT",
+                    {
                         "default": 0,
                         "min": -1e9,
                         "max": 1e9,
                         "step": 1,
                         "forceInput": True,
-                    }),
+                    },
+                ),
             }
         }
 
     def run(self, int):
-        return (str(int), )
+        return (str(int),)
+
 
 NODE_CLASS_MAPPINGS = {
     "MqTextSplitter": TextSplitByDelimiter,

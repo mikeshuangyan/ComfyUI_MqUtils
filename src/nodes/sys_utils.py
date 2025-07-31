@@ -1,18 +1,17 @@
 import torch
 
+
 class CheckFP4Support:
     NAME = "MQ Check Fp4 Support"
     CATEGORY = "MQ Utils/System"
     RETURN_TYPES = ("BOOLEAN",)
-    RETURN_NAMES = ("FP4 Support", )
+    RETURN_NAMES = ("FP4 Support",)
     FUNCTION = "run"
-    OUTPUT_IS_LIST = (False, )
+    OUTPUT_IS_LIST = (False,)
 
     @classmethod
     def INPUT_TYPES(s):
-        return {
-            "required": {}
-        }
+        return {"required": {}}
 
     def run(self):
         try:
@@ -20,9 +19,10 @@ class CheckFP4Support:
                 device = torch.cuda.current_device()
                 capabilities = torch.cuda.get_device_capability(device)
                 return ((int(capabilities[0]) > 9),)
-        except Exception as e:
+        except Exception:
             pass
-        return (False, )
+        return (False,)
+
 
 NODE_CLASS_MAPPINGS = {
     "MqCheckFP4Support": CheckFP4Support,

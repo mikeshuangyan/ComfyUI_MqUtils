@@ -1,6 +1,6 @@
 [project]
 name = "ComfyUI_MqUtils"
-version = "0.0.3"
+version = "0.0.4"
 description = "MQ utility nodes for ComfyUI"
 authors = [
   {name = "LU JH", email = "mikeshuangyan@gmail.com"}

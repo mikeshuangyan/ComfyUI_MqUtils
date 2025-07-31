@@ -3,7 +3,7 @@ __all__ = [
     "NODE_DISPLAY_NAME_MAPPINGS",
 ]
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 
 import importlib
 import logging
