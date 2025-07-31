@@ -1,24 +1,82 @@
 # ComfyUI MqUtils
 
-MQ util nodes for ComfyUI
+A collection of utility nodes for ComfyUI that provide essential helper functions for workflow automation.
 
-> [!NOTE]
-> This projected was created with a [cookiecutter](https://github.com/Comfy-Org/cookiecutter-comfy-extension) template. It helps you start writing custom nodes without worrying about the Python setup.
+## Features
 
-## Quickstart
+This extension provides the following utility nodes:
 
-1. Install [ComfyUI](https://docs.comfy.org/get_started).
-1. Install [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager)
-1. Look up this extension in ComfyUI-Manager. If you are installing manually, clone this repository under `ComfyUI/custom_nodes`.
-1. Restart ComfyUI.
+### 🔤 MQ Text Splitter
+Splits text into a list based on a delimiter with advanced control options.
+- **Inputs:**
+  - `text`: The input text to split
+  - `delimiter`: The character(s) to split by (supports escape sequences like `\n`)
+  - `start_index`: Starting position in the result list
+  - `skip_every`: Skip N items between selections
+  - `max_count`: Maximum number of items to return
+- **Outputs:**
+  - `STRING LIST`: Array of split text items
+  - `LENGTH`: Number of items in the result
 
-# Features
+### 🔀 MQ Int Switch
+Conditional integer value selector based on a boolean condition.
+- **Inputs:**
+  - `if_true`: Value to return when condition is true
+  - `if_false`: Value to return when condition is false
+  - `condition`: Boolean condition to evaluate
+- **Output:** Selected integer value
 
-- A list of features
+### 🔢 MQ Int To String
+Converts integer values to string format.
+- **Input:** Integer value (supports large numbers from -1e9 to 1e9)
+- **Output:** String representation of the integer
 
-## Develop
+### 🖥️ MQ Check FP4 Support
+Checks if your GPU supports FP4 (4-bit floating point) operations.
+- **Output:** Boolean indicating FP4 support (requires GPU compute capability > 9.0)
 
-To install the dev dependencies and pre-commit (will run the ruff hook), do:
+## Installation
+
+### Via ComfyUI Manager (Recommended)
+1. Install [ComfyUI Manager](https://github.com/ltdrdata/ComfyUI-Manager)
+2. Search for "ComfyUI MqUtils" in the Manager
+3. Click Install
+4. Restart ComfyUI
+
+### Manual Installation
+1. Navigate to your ComfyUI custom nodes directory:
+   ```bash
+   cd ComfyUI/custom_nodes/
+   ```
+2. Clone this repository:
+   ```bash
+   git clone https://github.com/mikeshuangyan/ComfyUI_MqUtils.git
+   ```
+3. Restart ComfyUI
+
+## Usage Examples
+
+### Text Processing
+Use **MQ Text Splitter** to process comma-separated prompts or split multi-line text:
+- Split tags: `"landscape, sunset, mountains"` → `["landscape", "sunset", "mountains"]`
+- Process every other item with `skip_every: 1`
+- Limit results with `max_count`
+
+### Conditional Logic
+Use **MQ Int Switch** for dynamic workflow control:
+- Switch between different seed values based on conditions
+- Toggle between quality levels
+- Implement if-then logic in your workflows
+
+### Type Conversion
+Use **MQ Int To String** when you need to:
+- Display numeric values in text widgets
+- Concatenate numbers with strings
+- Format numeric outputs
+
+## Development
+
+To set up the development environment:
 
 ```bash
 cd ComfyUI_MqUtils
@@ -26,42 +84,28 @@ pip install -e .[dev]
 pre-commit install
 ```
 
-The `-e` flag above will result in a "live" install, in the sense that any changes you make to your node extension will automatically be picked up the next time you run ComfyUI.
+This will install the package in editable mode and set up pre-commit hooks for code quality checks.
 
-## Publish to Github
+### Code Quality
+The project uses:
+- **Ruff** for linting and formatting
+- **Pre-commit** hooks to ensure code quality
+- GitHub Actions for continuous integration
 
-Install Github Desktop or follow these [instructions](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) for ssh.
+## Contributing
 
-1. Create a Github repository that matches the directory name. 
-2. Push the files to Git
+Contributions are welcome! Please ensure your code passes all linting checks:
+
+```bash
+ruff check .
+ruff format .
 ```
-git add .
-git commit -m "project scaffolding"
-git push
-``` 
 
-## Writing custom nodes
+## License
 
-An example custom node is located in [node.py](src/ComfyUI_MqUtils/nodes.py). To learn more, read the [docs](https://docs.comfy.org/essentials/custom_node_overview).
+This project is licensed under the GNU General Public License v3. See the [LICENSE](LICENSE) file for details.
 
+## Support
 
-## Tests
-
-This repo contains unit tests written in Pytest in the `tests/` directory. It is recommended to unit test your custom node.
-
-- [build-pipeline.yml](.github/workflows/build-pipeline.yml) will run pytest and linter on any open PRs
-- [validate.yml](.github/workflows/validate.yml) will run [node-diff](https://github.com/Comfy-Org/node-diff) to check for breaking changes
-
-## Publishing to Registry
-
-If you wish to share this custom node with others in the community, you can publish it to the registry. We've already auto-populated some fields in `pyproject.toml` under `tool.comfy`, but please double-check that they are correct.
-
-You need to make an account on https://registry.comfy.org and create an API key token.
-
-- [ ] Go to the [registry](https://registry.comfy.org). Login and create a publisher id (everything after the `@` sign on your registry profile). 
-- [ ] Add the publisher id into the pyproject.toml file.
-- [ ] Create an api key on the Registry for publishing from Github. [Instructions](https://docs.comfy.org/registry/publishing#create-an-api-key-for-publishing).
-- [ ] Add it to your Github Repository Secrets as `REGISTRY_ACCESS_TOKEN`.
-
-A Github action will run on every git push. You can also run the Github action manually. Full instructions [here](https://docs.comfy.org/registry/publishing). Join our [discord](https://discord.com/invite/comfyorg) if you have any questions!
-
+- Report issues on [GitHub Issues](https://github.com/mikeshuangyan/ComfyUI_MqUtils/issues)
+- For questions, join the [ComfyUI Discord](https://discord.com/invite/comfyorg)

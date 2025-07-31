@@ -4,27 +4,19 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ComfyUI_MqUtils"
-version = "0.0.2"
-description = "MQ util nodes for ComfyUI"
+dynamic = ["version"]
+description = "MQ utility nodes for ComfyUI"
 authors = [
   {name = "ComfyUI_MqUtils", email = "mikeshuangyan@gmail.com"}
 ]
 readme = "README.md"
-license = {text = "GNU General Public License v3"}
-classifiers = []
-dependencies = [
-
-]
-
-
+license = {file = "LICENSE"}
+dependencies = []
 
 [project.optional-dependencies]
 dev = [
     "bump-my-version",
-    "coverage",  # testing
-    "mypy",  # linting
     "pre-commit", # runs linting on commit
-    "pytest",  # testing
     "ruff",  # linting
 ]
 
@@ -37,36 +29,18 @@ Repository = "https://github.com/mikeshuangyan/ComfyUI_MqUtils"
 [tool.comfy]
 PublisherId = "mikeshuangyan"
 DisplayName = "ComfyUI MqUtils"
-Icon = ""
 
 
 [tool.setuptools.package-data]
 "*" = ["*.*"]
 
-[tool.pytest.ini_options]
-minversion = "8.0"
-testpaths = [
-    "tests",
-]
-
-[tool.mypy]
-files = "."
-
-# Use strict defaults
-strict = true
-warn_unreachable = true
-warn_no_return = true
-
-[[tool.mypy.overrides]]
-# Don't require test functions to include types
-module = "tests.*"
-allow_untyped_defs = true
-disable_error_code = "attr-defined"
+[tool.setuptools.dynamic]
+version = {attr = "ComfyUI_MqUtils.__version__"}
 
 [tool.ruff]
 # extend-exclude = ["static", "ci/templates"]
 line-length = 140
-src = ["src", "tests"]
+src = ["src"]
 target-version = "py39"
 
 # Add rules to ban exec/eval

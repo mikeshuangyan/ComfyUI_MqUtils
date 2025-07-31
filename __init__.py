@@ -3,18 +3,22 @@ __all__ = [
     "NODE_DISPLAY_NAME_MAPPINGS",
 ]
 
-__author__ = """ComfyUI_MqUtils"""
-__email__ = "mikeshuangyan@gmail.com"
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 import importlib
+import logging
+
+logger = logging.getLogger(__name__)
 
 NODE_CLASS_MAPPINGS = {}
 NODE_DISPLAY_NAME_MAPPINGS = {}
 
-nodes_list = ["utils", "sys_utils"]
-# locale = {}
-for module_name in nodes_list:
-    imported_module = importlib.import_module(".src.nodes.{}".format(module_name), __name__)
-    NODE_CLASS_MAPPINGS = {**NODE_CLASS_MAPPINGS, **imported_module.NODE_CLASS_MAPPINGS}
-    NODE_DISPLAY_NAME_MAPPINGS = {**NODE_DISPLAY_NAME_MAPPINGS, **imported_module.NODE_DISPLAY_NAME_MAPPINGS}
+NODES_LIST = ["utils", "sys_utils"]
+
+for module_name in NODES_LIST:
+    try:
+        imported_module = importlib.import_module(f".src.nodes.{module_name}", __name__)
+        NODE_CLASS_MAPPINGS.update(imported_module.NODE_CLASS_MAPPINGS)
+        NODE_DISPLAY_NAME_MAPPINGS.update(imported_module.NODE_DISPLAY_NAME_MAPPINGS)
+    except Exception as e:
+        logger.warning(f"Failed to import module {module_name}: {e}")
